@@ -21,19 +21,6 @@ export function TreeListSkeleton({ className }: { className?: string }) {
   );
 }
 
-export function EditorContentSkeleton() {
-  return (
-    <div className="flex flex-1 flex-col gap-3 bg-well p-8" aria-busy aria-label="Loading note">
-      <div className="h-7 w-2/5 max-w-md animate-pulse rounded bg-raised" />
-      <div className="mt-2 space-y-2">
-        {Array.from({ length: 6 }, (_, i) => (
-          <div key={i} className="h-4 animate-pulse rounded bg-raised" style={{ width: `${92 - i * 8}%` }} />
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export function TreeLoadFailed({ onRetry }: { onRetry: () => void }) {
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-2 px-4 py-8 text-center">

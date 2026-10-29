@@ -28,7 +28,6 @@ import { MARKDOWN_COLUMN_CLASS } from "@/components/MarkdownRawEditor";
 import { noteStore } from "@/stores/note-store";
 import { aiStore } from "@/stores/ai-store";
 import { workspaceStore } from "@/stores/workspace-store";
-import { EditorContentSkeleton } from "@/components/WorkspaceLoading";
 
 export type MarkdownEditorHandle = {
   flushViewState(): void;
@@ -378,7 +377,7 @@ export const MarkdownEditor = observer(
 
     if (!noteId || !notePath) {
       if (workspaceStore.treeLoading || workspaceStore.booting) {
-        return <EditorContentSkeleton />;
+        return <div className="flex flex-1 bg-well" />;
       }
       return <div className="flex flex-1 items-center justify-center text-sm text-dim">Select a note or create one.</div>;
     }
@@ -389,7 +388,7 @@ export const MarkdownEditor = observer(
         </div>
       );
     }
-    if (!noteStore.editorReady) return <EditorContentSkeleton />;
+    if (!noteStore.editorReady) return <div className="flex flex-1 bg-well" />;
 
     return (
       <BlockEditor
