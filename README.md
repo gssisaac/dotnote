@@ -2,7 +2,7 @@
 
 **Your notes. Your cloud. Your AI key.**
 
-[Website](https://dotnote.cloud) · [Try the demo](https://strum-us.github.io/dotnote-demo/entry-sample)
+[Website](https://dotnote.cloud) · [Try the demo](https://demo.dotnote.cloud/entry-sample)
 
 ![Dotnote](docs/media/dotnote-intro-light.gif)
 
