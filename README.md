@@ -125,6 +125,17 @@ Requests go from **your Worker** directly to the provider you chose, using your 
 - **Backups are yours to keep.** Your bucket is the source of truth; export or copy the `.md` files from R2 whenever you like.
 - To uninstall, delete the Worker, D1 database, and R2 bucket from your Cloudflare account. Deleting the bucket permanently deletes your notes unless you kept a copy.
 
+### What leaves your deployment
+
+Your notes, password hash, sessions, and search index never leave your Cloudflare account: notes are written straight to your R2 bucket through the Worker's own binding, and signing in is a row in your own D1. Two things do reach a server we run.
+
+| Destination | What it carries | When |
+|---|---|---|
+| `installer.dotnote.cloud` | Nothing. Plain `GET`s for the signed release manifest and its files — no request body, no instance id | A manual update check, or every 30 minutes with automatic updates on. Never, if `INSTALLER_ORIGIN` is unset |
+| `diagnostics.dotnote.cloud` | The optional registration: owner email, Cloudflare account id, Worker name, Worker URL, app version, a random instance id, and a timestamp | Only after the owner opts in, and only when one of those values changes. See [docs/diagnostics.md](./docs/diagnostics.md) |
+
+AI requests go from your Worker straight to the provider you chose — they do not pass through us.
+
 ## Updating
 
 - **Guided install:** when a new version is out, the sidebar offers it. Dotnote applies the new database migrations and replaces its own Worker using the Cloudflare permission it stored at install, then the page reloads. You never sign in to Cloudflare again for an update. **Settings › Updates** shows the running version, checks on demand, can go back to the version you updated from, and can install new releases on its own every 30 minutes, even with no tab open (off by default). Releases are signed, and Dotnote refuses one that is not. See [docs/self-update.md](./docs/self-update.md).
